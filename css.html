@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/lib/kk/kk.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="/lib/jquery.js" defer></script>
+    <script src="/lib/kk/kk.js" defer></script>
+
+    <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Node.js 101, azaz egy gyors weboldal készítése Express backendel</h1>
+            <h2>Készítette: Kiss Konrád Soma, CNY8MP</h2>
+        </header>
+        <kk-sidebar>
+            <kk-sidebar-item href="/">Kezdőlap</kk-sidebar-item>
+            <kk-sidebar-item href="/html.html">HTML alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/css.html">CSS alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/js.html">JavaScript alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/nodejs.html">Node.js alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/express.html">Express alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/contact.html">Űrlap</kk-sidebar-item>
+            <kk-sidebar-item href="/about.html">Rólam</kk-sidebar-item>
+        </kk-sidebar>
+        <section>
+            <h1 id="title">CSS alapok</h1>
+            <style>
+                #title {
+                    margin-bottom: 1rem;
+                }
+            </style>
+            <p>A CSS (Cascading Style Sheets) egy olyan nyelv, amely segítségével formázhatjuk az oldalainkat.<br>
+               Roppant erős tud lenni a megfelelő kezekben, és rengeteg lehetőséget rejt magában.             <br>
+               Van több alapfogalom a CSS-el kapcsolatban először azonban, amit tisztáznunk kell.</p>
+            
+            <h2>Elhelyezése HTML-ben</h2>
+            <p>A CSS-t az oldalunkon több módon is elhelyezhetjük. Az egyik leggyakoribb módja a <code inline>&lt;style></code> elem használata. <br>
+               Ezt az elemet a <code inline>&lt;head></code> elemen belül helyezzük el, és az összes stílust ide írjuk bele.</p>
+            <p>Ez a módszer azonban nem a legjobb, mivel az összes stílust külön-külön helyeken tartjuk, nem újrafelhasználhatóak, és nehezen karbantarthatóak.</p>
+            <p>A másik módszer a <code inline>&lt;link></code> elem használata. Ezt az elemet a <code inline>&lt;head></code> elemen belül helyezzük el, <br>
+               és a <code inline>href</code> attribútumában megadjuk a CSS fájl elérési útját.</p>
+            <p>Ez a módszer sokkal jobb, mivel az összes stílust egy helyen tartjuk, újrafelhasználhatóak, és könnyen karbantarthatóak.</p>
+            <p>Példa: </p>
+            <code html content="
+&lt;!DOCTYPE html>
+&lt;html lang=&quot;hu&quot;>
+&lt;head>
+    &lt;title>CSS alapok&lt;/title>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;>
+    &lt;style>
+        h1 {
+            color: black;
+        }
+    &lt;/style>
+&lt;/head>
+&lt;body>
+    &lt;h1>Üdvözöllek!&lt;/h1>
+    &lt;p>Ez egy példa oldal a CSS alapokról.&lt;/p>
+&lt;/body>
+&lt;/html>
+            "></code><br>
+            <code css content="
+/* style.css */
+p {
+    color: red;
+}
+            "></code>
+            <hr>
+            <h2>Méretezés CSS-ben</h2>
+            <p>Vegyük alapul az informatikában megszokott tudásunkat. Alapból azt feltételezzük, hogy <code inline>px</code>-ben,<br>
+               vagy talán még <code inline>%</code>-ban tudunk méretezni. Azonban a modern böngészők már sok hasznosabb, és jobb <br>
+               megoldást kínálnak.</p>
+            <p>Remek példa erre a <code inline>rem</code> mértékegység. Ez a gyökérelem méretét veszi alapul, <br>
+               és az ahhoz képest méretezi a többi elemet. Ezáltal könnyen és egyszerűen tudjuk a méreteket <br>
+               változtatni, és a gyökérelem betűméretét változtatva az összes többi elem méretét is megváltoztatjuk.</p>
+            <p>Ezt általában a reszponzivitás megőrzése érdekében használjuk, hiszen így kijelzőmérettől és <br>
+               felbontástól függetlenül ugyanolyan jól tud majd kinézni az oldalunk.</p>
+            <p>Az összes lehetőségünk az alábbiak:</p>
+            <ul>
+                <li><code inline>px</code> - Képpontokban mért méret</li>
+                <li><code inline>em</code> - Az elem betűméretét veszi alapul</li>
+                <li><code inline>rem</code> - A gyökérelem betűméretét veszi alapul</li>
+                <li><code inline>%</code> - A szülőelem méretét veszi alapul</li>
+                <li><code inline>vh</code> - A kijelző magasságát veszi alapul</li>
+                <li><code inline>vw</code> - A kijelző szélességét veszi alapul</li>
+                <li><code inline>vmin</code> - A kijelző kisebbik méretét veszi alapul</li>
+                <li><code inline>vmax</code> - A kijelző nagyobbik méretét veszi alapul</li>
+            </ul>
+            <p>Ez még önmagában viszont sok mindenre nem hasznos. Fontos tudnunk hogy mi alapján méretezünk CSS-ben,<br>
+               és hogy mi alapján pozícionálunk. Hiszen ha mindent csak sorba fix méretekkel tennénk, elég unalmas lenne.</p>
+            <h2>Margin és padding</h2>
+            <p>Az elemek közötti távolságokat a <code inline>margin</code> és a <code inline>padding</code> tulajdonságokkal is be tudjuk beállítani.<br>
+               A <code inline>margin</code> a környező elemektől való távolságot jelöli, míg a <code inline>padding</code> az elem tartalmától való távolságot.</p>
+            <div class="margin-example">
+                <div class="element">
+                    <div class="padding-example">
+                        ...Tartalom...
+                    </div>
+                </div>
+            </div>
+            <style>
+                .margin-example {
+                    color: black;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 20rem;
+                    height: 16rem;
+                    background-color: #aa88ff88;
+                    border: 0.125rem solid #aa88ff;
+                }
+                .margin-example::before {
+                    position: relative;
+                    display: inline;
+                    top: -0.25rem;
+                    left: 0;
+                    text-align: center;
+                    content: 'Margin';
+                }
+                .margin-example::after {
+                    position: relative;
+                    display: inline;
+                    top: 0.25rem;
+                    left: 0;
+                    text-align: center;
+                    content: '1rem';
+                }
+
+                .element {
+                    color: black;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 16rem;
+                    height: 12rem;
+                    background-color: #ffaa8888;
+                    border: 0.125rem solid #ffaa88;
+                }
+                .element::before {
+                    position: relative;
+                    display: inline;
+                    top: -0.25rem;
+                    left: 0;
+                    text-align: center;
+                    content: 'Element';
+                }
+                .element::after {
+                    position: relative;
+                    display: inline;
+                    top: 0.25rem;
+                    left: 0;
+                    text-align: center;
+                    content: '16rem x 12rem';
+                }
+
+                .padding-example {
+                    color: black;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    width: 12rem;
+                    height: 8rem;
+                    background-color: #88ffaa88;
+                    border: 0.125rem solid #88ffaa;
+                    text-align: center;
+                }
+                .padding-example::before {
+                    position: relative;
+                    display: inline;
+                    top: 0.25rem;
+                    left: 0;
+                    text-align: center;
+                    content: 'Padding';
+                }
+                .padding-example::after {
+                    position: relative;
+                    display: inline;
+                    top: -0.25rem;
+                    left: 0;
+                    text-align: center;
+                    content: '1rem';
+                }
+            </style><br>
+            <code css content="
+element {
+    width: 16rem;
+    height: 12rem;
+
+    margin: 1rem;
+    padding: 1rem;
+}
+            "></code>
+            <p>Ez alapvetően egy nagyon szép módja lenne a beállításnak, viszont van egy régi tulajdonság amit még a korai időkből megtartottunk.<br>
+               Ez pedig a <code inline>box-sizing</code> tulajdonság. Ez a tulajdonság azt mondja meg, hogy a padding és a border méretét is beleszámoljuk-e <br>
+               az elem méretébe. Alapértelmezetten a <code inline>content-box</code> értéke van beállítva, ami azt jelenti, hogy a padding és a border <br>
+               méretét nem számoljuk bele, ezzel megnehezítve a dolgunkat. Mielőtt elmondanám hogy teljesen hogyan lehet kijavítani a problémánkat vele, <br>
+               beszélnem kell a CSS kijelölőkről.</p>
+            <h2>Kijelölők</h2>
+            <p>A kijelölők a CSS-ben a különböző elemekre való hivatkozásokat jelölik. Ezek lehetnek osztályok, azonosítók, vagy akár elemek is.<br>
+               Az osztályokat a <code inline>.</code> jellel, az azonosítókat a <code inline>#</code> jellel, az elemeket pedig anélkül hivatkozhatjuk meg.</p>
+            <p>Ennél sokkal több kijelölő, és pontosítás is létezik, amelyek részben érinteni fogok.</p>
+            <hr>
+            <p>Példák: </p>
+            <code html content="
+<div class=&quot;osztaly&quot;>
+    Tartalom
+</div>
+            "></code>
+            <br>
+            <code css content="
+.osztaly {
+    color: black;
+}
+           "></code>
+            <p>Ez egy osztály szintű kijelölés, amellyel átállítottuk a betűk színét feketére. <br>
+               Az osztályszintű kijelölés előnye, hogy több elemre is alkalmazható, és nem kell minden elemet külön kijelölni.</p>
+            <hr>
+            <code html content="
+<div id=&quot;azonosito&quot;>
+    Tartalom
+</div>
+            "></code>
+            <br>
+            <code css content="
+#azonosito {
+    color: black;
+}
+           "></code>
+            <p>Ez egy azonosító szintű kijelölés, amellyel átállítottuk a betűk színét feketére. <br>
+               Az azonosító szintű kijelölés tulajdonsága, hogy csakis egyetlen elemre alkalmazható.</p>
+            <hr>
+            <code html content="
+<div>...Tartalom...</div>
+            "></code>
+            <br>
+            <code css content="
+div {
+    color: black;
+}
+           "></code>
+            <p>Ez egy elem szintű kijelölés, amellyel átállítottuk a betűk színét feketére. <br>
+               Az elem szintű kijelölés tulajdonsága, hogy az összes ilyen típusú elemre alkalmazható.</p>
+            <hr>
+            <code css content="
+* {
+    box-sizing: border-box;
+}
+            "></code>
+            <p>Ez a kódrészlet az összes elemre alkalmazza a <code inline>border-box</code> tulajdonságot, amelyet korábban említettem. <br>
+               Ezáltal a padding és a border méretét is beleszámoljuk az elem méretébe, és így könnyebben tudunk dolgozni.</p>
+            <p>Ezt a kódrészletet érdemes mindig elhelyezni az oldal elején.</p>
+            <p>Még sok, ennél jóval specifikusabb kijelölő is létezik, de ezekkel a legtöbb esetben már el tudunk boldogulni.</p>
+            <hr>
+            <h2>Megjelenítés és elrendezés</h2>
+            <p>Az elemek megjelenítését és elrendezését a <code inline>display</code>, illetve a <code inline>position</code> tulajdonságokkal tudjuk beállítani. <br>
+               Ezek határozzák meg, hogy az elemek hogyan viselkedjenek egymáshoz képest.</p>
+            <p>A <code inline>display</code> tulajdonság az elem blokk vagy soron belüli viselkedését határozza meg, illetve speciális esetekben a gyermekelemei elrendezését is.</p>
+            <p>A <code inline>position</code> tulajdonság az elem pozícionálását határozza meg, ezt példákkal fogom bemutatni.</p>
+            <hr>
+            <p>Példák: </p>
+            <code css content="
+div {
+    display: block;
+}
+            "></code>
+            <p>Ez az elem egy blokk elem lesz, ami azt jelenti, hogy a következő elem új sorban fog megjelenni, és alapértelmezetten <br>
+               a teljes szélességet elfoglalja, ha nem állítjuk át a méretét.</p>
+            <p>Alapból ilyen a <code inline>div</code> elem, de a <code inline>h1</code>, <code inline>h2</code>, <code inline>p</code> és még sok más.</p>
+            <hr>
+            <code css content="
+div {
+    display: inline;
+}
+            "></code>
+            <p>Ez az elem egy soron belüli elem lesz, ami azt jelenti, hogy a körülötte lévő elemekkel egy sorban fog megjelenni, <br>
+               és csak annyi helyet fog elfoglalni, amennyit a tartalma igényel.</p>
+            <p>Alapból ilyen a <code inline>span</code> elem, de a <code inline>a</code>, <code inline>strong</code>, <code inline>em</code> és még sok más.</p>
+            <hr>
+            <code css content="
+div {
+    display: flex;
+}
+            "></code>
+            <p>Ez az elem egy flex konténer lesz, ami azt jelenti, hogy egy flexibilis elrendezésért felelős.</p>
+            <p>A flexbox egy nagyon erős eszköz a CSS-ben, amely segítségével könnyen és gyorsan tudjuk az elemeket elrendezni, és a reszponzivitást is meg tudjuk tartani. <br>
+               Tulajdonsága hogy egy megadott irány mentén elrendezi az összes gyermek elemét, és a további tulajdonságai meghatározzák az elrendezés jellegét, kezdőhelyét, stb.</p>
+            <p>Nagyon erős eszköz, viszont a teljes leírása sok lenne, szóval azt javaslom ha ezt szeretnéd haszálni, az alábbi linken folytasd az olvasást:
+            <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox" target="_blank">Flexbox</a></p>
+            <hr>
+            <code css content="
+div {
+    display: grid;
+}
+            "></code>
+            <p>Ez az elem egy grid konténer lesz, ami azt jelenti, hogy egy rácsos elrendezésért felelős.</p>
+            <p>Hasonló okoból jött létre/használjuk mint a flexboxot, de egy kötöttebb, fixebb elrendezést enged. <br>
+               Még egy indok a létrejöttére a túlzottan fix, nehezen formálható és nehezen karbantartható táblázatok helyettesítése volt.</p>
+            <p>Nagyon erős eszköz, viszont a teljes leírása sok lenne, szóval azt javaslom ha ezt szeretnéd haszálni, az alábbi linken folytasd az olvasást:
+            <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids" target="_blank">Grid</a></p>
+            <hr>
+            <code css content="
+div {
+    position: relative;
+}
+            "></code>
+            <p>Ez az elem relatív pozícióban lesz, ami azt jelenti, hogy az elem saját magához, vagy a szülőelemhez képest fog elmozdulni.</p>
+            <p>Ez az egyik alapértelmezett érték, és a legtöbb esetben ezt fogjuk használni.</p>
+            <hr>
+            <code css content="
+div {
+    position: absolute;
+}
+            "></code>
+            <p>Ez az elem abszolút pozícióban lesz, ami azt jelenti, hogy az elem az első abszolút pozícióban lévő szülőelemhez képest fog elmozdulni.</p>
+            <p>Ez az egyik legtöbb problémát okozó tulajdonság, mivel az abszolút pozícióban lévő elemek kikerülnek a normális dokumentumfolyamból, <br>
+               és így a többi elem nem veszi figyelembe őket. Viszont lebegő elemek, vagy fix elemek elhelyezésére nagyon jó.</p>
+            <hr>
+            <code css content="
+div {
+    position: fixed;
+}
+            "></code>
+            <p>Ez az elem fix pozícióban lesz, ami azt jelenti, hogy az elem az ablakhoz képest fog elmozdulni.</p>
+            <p>Ez az elem ritkán használt, de például egy vissza a lap tetejére gomb elhelyezésére nagyon jó.</p>
+            <hr>
+            <code css content="
+div {
+    position: sticky;
+}
+            "></code>
+            <p>Ez az elem ragasztott pozícióban lesz, ami azt jelenti, hogy az elem az ablakhoz képest fog elmozdulni, de csak akkor, ha a szülőelem látható.</p>
+            <p>Ez az elem ritkán használt, de például egy navigációs sáv elhelyezésére nagyon jó. Egy fixed és egy absolute közötti megoldás.</p>
+            <hr>
+            <p>Ezek az alapvető tulajdonságok, amelyekkel már el tudunk indulni a CSS világában. <br>
+               A továbbiakban még sok érdekes és hasznos tulajdonságot fogok bemutatni, de ezekkel már el tudunk indulni.</p>
+            <p>Most pedig haladjunk tovább a következő részre: <a href="/js.html">JavaScript alapok</a></p>
+        </section>
+        <footer>
+            <p>2024 &copy; Kiss Konrád Soma</p>
+        </footer>
+    </main>
+</body>
+</html>

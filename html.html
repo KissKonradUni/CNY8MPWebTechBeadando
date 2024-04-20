@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/lib/kk/kk.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="/lib/jquery.js" defer></script>
+    <script src="/lib/kk/kk.js" defer></script>
+
+    <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Node.js 101, azaz egy gyors weboldal készítése Express backendel</h1>
+            <h2>Készítette: Kiss Konrád Soma, CNY8MP</h2>
+        </header>
+        <kk-sidebar>
+            <kk-sidebar-item href="/">Kezdőlap</kk-sidebar-item>
+            <kk-sidebar-item href="/html.html">HTML alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/css.html">CSS alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/js.html">JavaScript alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/nodejs.html">Node.js alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/express.html">Express alapok</kk-sidebar-item>
+            <kk-sidebar-item href="/contact.html">Űrlap</kk-sidebar-item>
+            <kk-sidebar-item href="/about.html">Rólam</kk-sidebar-item>
+        </kk-sidebar>
+        <section>
+            <h1 id="title">HTML alapok</h1>
+            <h2>Dokumentum felépítése</h2>
+            <style>
+                #title {
+                    padding-bottom: 0.5rem;
+                    margin-bottom: 0.5rem;
+                    border-bottom: 0.25rem solid var(--secondary-color);
+                }
+            </style>
+            <p>A HTML (HyperText Markup Language) egy olyan nyelv, amely segítségével weboldalakat készíthetünk. <br>
+               Alapja a hierarchikus felépítés, amelynek köszönhetően a böngészők képesek értelmezni és megjeleníteni az oldalakat. <br>
+               Miden elem valaminek a gyermeke, kivéve a <code inline>&lt;!DOCTYPE html></code> és a <code inline>&lt;html></code> elemeket, ezek a dokumentum gyökérelemei. <br>
+               Az elemeket egy nyitó és egy záró tag közé kell írni, ezek közé kerül a tartalmuk, illetve a gyermek elemeik. <br>
+               Egy HTML dokumentumnak van pár alapköve, amelyek az alábbi módon néznek ki: </p>
+            <code html content="
+<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <title>HTML alapok</title>
+</head>
+<body>
+    <p>Helló világ!</p>
+&lt/body>
+</html>
+            "></code>
+            <p>A fenti kódrészlet egy a lehető legegyszerűbb HTML dokumentumot mutatja be.</p>
+            <p>A felhasznált elemek:</p>
+            <ul>
+                <li><code inline>&lt;!DOCTYPE html></code> - Jelöli, hogy a fájl egy HTML5-ös dokumentumot tartalmaz.</li>
+                <li><code inline>&lt;html lang=&quot;en&quot;></code> - A dokumentum gyökéreleme, a nyelvet jelöli.</li>
+                <li><code inline>&lt;head></code> - A dokumentum fejlécét tartalmazza, itt találhatóak a metaadatok, stíluslapok és scriptek és az oldal címe.</li>
+                <li><code inline>&lt;title></code> - Az oldal címe, ami a böngésző fülén jelenik meg.</li>
+                <li><code inline>&lt;body></code> - Az oldal tartalma.</li>
+            </ul>
+            <p>Ez önmagában eléggé kevés ahhoz, hogy bármi fontos dolgot megjelenítsünk, de ezek az alapok, amelyekre építkezve bármilyen weboldalt készíthetünk.</p>
+            <h2>Fontos elemek</h2>
+            <p>Amennyiben csak szöveges dokumentumot akarunk készíteni HTML-ben, akkor a következő elemekre lesz szükségünk:</p>
+            <ul>
+                <li><code inline>&lt;h1></code> - <code inline>&lt;h6></code> - Címsorok, a szám a fontosságukat jelzi.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;h1>Ez egy cím&lt;/h1></code><br>
+                        <h1>Ez egy cím</h1>
+                    </li>
+                </ul>
+                <li><code inline>&lt;p></code> - Bekezdések.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;p>Ez egy bekezdés&lt;/p></code><br>
+                        <p>Ez egy bekezdés</p>
+                    </li>
+                </ul>
+                <li><code inline>&lt;a></code> - Hiperhivatkozások.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>Link: &lt;a href=&quot;https://google.com&quot;>Google&lt;/a></code><br>
+                        Link: <a href="https://google.com">Google</a>
+                    </li>
+                </ul>
+                <li><code inline>&lt;img></code> - Képek.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;img src=&quot;https://picsum.photos/64/64&quot; alt=&quot;Random kép&quot;></code><br>
+                        <img src="https://picsum.photos/64/64" alt="Random kép">
+                    </li>
+                </ul>
+                <li><code inline>&lt;ul> &lt;li></code> - Listák.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;ul>&lt;li>Egy&lt;/li>&lt;li>Kettő&lt;/li>&lt;/ul></code><br>
+                        <ul><li>Egy</li><li>Kettő</li></ul>
+                    </li>
+                </ul>
+                <li><code inline>&lt;ol> &lt;li></code> - Rendezett listák.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;ol>&lt;li>Egy&lt;/li>&lt;li>Kettő&lt;/li>&lt;/ol></code><br>
+                        <ol><li>Egy</li><li>Kettő</li></ol>
+                    </li>
+                </ul>
+                <li><code inline>&lt;table></code> - Táblázatok.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;table>&lt;tr>&lt;td>Egy&lt;/td>&lt;td>Kettő&lt;/td>&lt;/tr>&lt;/table></code><br>
+                        <table border="1"><tr><td>Egy</td><td>Kettő</td></tr></table>
+                    </li>
+                </ul>
+            </ul>
+            <p>Természetesen ezzel csak a felszínt kapargatjuk, hiszen a HTML rengeteg elemet tartalmaz, amelyekkel interaktívabbá és szebbé tehetjük az oldalunkat.</p>
+            <p>Csak hogy pár ezek közül is fel legyen sorolva:</p>
+            <ul>
+                <li><code inline>&lt;button></code> - Gombok.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;button>Ez egy gomb&lt;/button></code><br>
+                        <button>Ez egy gomb</button>
+                    </li>
+                </ul>
+                <li><code inline>&lt;video></code> - Videók.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;video src=&quot;https://www.w3schools.com/html/mov_bbb.mp4&quot; controls></code><br>
+                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" controls width="128"></video>
+                    </li>
+                </ul>
+                <li><code inline>&lt;audio></code> - Audiók.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;audio src=&quot;https://www.w3schools.com/html/horse.mp3&quot; controls></code><br>
+                        <audio src="https://www.w3schools.com/html/horse.mp3" controls></audio>
+                    </li>
+                </ul>
+                <li><code inline>&lt;textarea></code> - Szövegmezők.</li>
+                <ul>
+                    <li style="margin: 1rem;">
+                        Példa: <code inline>&lt;textarea>Ez egy szövegmező&lt;/textarea></code><br>
+                        <textarea>Ez egy szövegmező</textarea>
+                    </li>
+                </ul>
+            </ul>
+            <p>Legvégül még felsorolnék pár elemet, amelyek az oldal szerkezetét tudják biztosítani (ezekhez nem kell példa, nem látványosak): </p>
+            <ul>
+                <li><code inline>&lt;div></code> - Egy blokk elem, amely segítségével csoportosíthatjuk az elemeket.</li>
+                <li><code inline>&lt;span></code> - Egy sor elem, amely segítségével csoportosíthatjuk az elemeket.</li>
+                <li><code inline>&lt;header></code> - Az oldal fejlécét tartalmazza.</li>
+                <li><code inline>&lt;footer></code> - Az oldal láblécét tartalmazza.</li>
+                <li><code inline>&lt;section></code> - Egy szekciót jelöl.</li>
+                <li><code inline>&lt;article></code> - Egy cikket jelöl.</li>
+                <li><code inline>&lt;aside></code> - Egy oldalsávot jelöl.</li>
+                <li><code inline>&lt;nav></code> - Egy navigációs menüt jelöl.</li>
+                <li><code inline>&lt;main></code> - Az oldal fő tartalmát jelöli.</li>
+            </ul>
+            <p>Most pedig haladjunk tovább a következő részre: <a href="/css.html">CSS alapok</a></p>
+        </section>
+        <footer>
+            <p>2024 &copy; Kiss Konrád Soma</p>
+        </footer>
+    </main>
+</body>
+</html>
