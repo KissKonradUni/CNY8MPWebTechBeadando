@@ -41,8 +41,8 @@ h1, h2, h3, h4, h5, h6 {
 
 main {
     display: grid;
-    grid-template-columns: auto 3fr;
-    grid-template-rows: 8rem 1fr 3rem;
+    grid-template-columns: 1fr 100fr 1fr;
+    grid-template-rows: auto 1fr 3rem;
 
 	min-height: 100vh;
 	width: 100%;
@@ -53,6 +53,7 @@ main {
 header,
 footer,
 kk-sidebar,
+nav,
 section {
 	display: block;
 
@@ -64,7 +65,7 @@ section {
 }
 
 header, footer {
-    grid-column: 1 / span 2;
+    grid-column: 1 / span 3;
 }
 
 header {
@@ -74,7 +75,7 @@ header {
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     
     justify-content: center;
     align-items: center;
@@ -87,6 +88,8 @@ header {
     background: url("https://picsum.photos/id/115/1920/400") no-repeat center center;
     background-size: cover;
 
+    font-size: 2rem;
+    font-weight: bold;
     text-shadow: 0 0 0.25rem var(--darker-color);
 
     user-select: none;
@@ -104,14 +107,40 @@ footer {
 }
 
 section {
-    border-radius: 1rem 0 0 1rem;
+    border-radius: 1rem;
     padding: 1.5rem;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    
+    border-left: 0.25rem solid var(--primary-color);
+    border-radius: 1rem 0 0 1rem;
+
+    width: 20rem;
+
+    transition: width 0.15s ease-in-out;
+}
+
+nav[hidden="true"] {
+    display: flex;
+
+    width: 4.5rem;
+}
+
+nav[hidden="true"] > form {
+    display: none;
+}
+
+nav[hidden="true"] > .kk-topbar > .kk-topbar-title {
+    display: none;
 }
 
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr 3rem;
+        grid-template-rows: auto auto 1fr auto 3rem;
     }
 
     header,
@@ -148,6 +177,16 @@ section {
         transition: none;
     }
 
+    /* dont hide sidebar */
+    kk-sidebar[hidden="true"], nav[hidden="true"] {
+        display: flex !important;
+        width: 100%;
+    }
+
+    kk-sidebar[hidden="true"] > kk-sidebar-item {
+        display: block;
+    }
+
     kk-sidebar-item {
         flex: 1;
         
@@ -159,12 +198,17 @@ section {
                     inset -0.25rem 0 0.25rem -0.25rem var(--light-color);
     }
 
-    kk-sidebar > .kk-topbar {
+    kk-sidebar > .kk-topbar, nav > .kk-topbar {
         display: none;
     }
 
     section {
         border-radius: 0;
+    }
+
+    nav {
+        border-radius: 0;
+        border: none;
     }
 }
 
@@ -200,4 +244,33 @@ a, a:visited {
 
 a:hover {
     text-decoration: underline;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form > label {
+    margin-top: 0.5rem;
+    margin-bottom: 0.125rem;
+}
+
+form > button {
+    margin-top: 0.5rem;
+
+    padding: 0.5rem 1rem;
+
+    background-color: var(--primary-color);
+    color: var(--light-color);
+
+    border: none;
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+    transition: filter 0.15s ease-in-out;
+}
+
+form > button:hover {
+    filter: brightness(1.25);
 }

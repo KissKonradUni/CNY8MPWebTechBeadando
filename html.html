@@ -7,26 +7,16 @@
     <link rel="stylesheet" href="./lib/kk/kk.css">
     <link rel="stylesheet" href="style.css">
 
-    <script src="./lib/jquery.js" defer></script>
+    <script src="./lib/jquery-3.7.1.min.js" defer></script>
     <script src="./lib/kk/kk.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
 </head>
 <body>
     <main>
-        <header>
-            <h1>Node.js 101, azaz egy gyors weboldal készítése Express backendel</h1>
-            <h2>Készítette: Kiss Konrád Soma, CNY8MP</h2>
+        <header kk-content="header">
         </header>
-        <kk-sidebar>
-            <kk-sidebar-item href="./">Kezdőlap</kk-sidebar-item>
-            <kk-sidebar-item href="./html.html">HTML alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./css.html">CSS alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./js.html">JavaScript alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./nodejs.html">Node.js alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./express.html">Express alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./contact.html">Űrlap</kk-sidebar-item>
-            <kk-sidebar-item href="./about.html">Rólam</kk-sidebar-item>
+        <kk-sidebar kk-content="sidebar">
         </kk-sidebar>
         <section>
             <h1 id="title">HTML alapok</h1>
@@ -161,10 +151,48 @@
                 <li><code inline>&lt;nav></code> - Egy navigációs menüt jelöl.</li>
                 <li><code inline>&lt;main></code> - Az oldal fő tartalmát jelöli.</li>
             </ul>
+            <h2>Attribútumok</h2>
+            <p>Az elemekhez hozzáadhatunk attribútumokat, amelyek segítségével módosíthatjuk az elem viselkedését vagy megjelenését. <br>
+               Például az <code inline>&lt;a></code> elemhez hozzáadhatunk egy <code inline>href</code> attribútumot, amely megadja, hogy hova mutasson a link. <br>
+               Az attribútumokat a következő módon adhatjuk meg: <code inline>&lt;elem attribútum=&quot;érték&quot;></code>.</p>
+            <p>Például az alábbi kód egy hiperhivatkozást tartalmaz, amely a Google főoldalára mutat:</p>
+            <code html content="
+&lt;a href=&quot;https://google.com&quot;>Google&lt;/a>
+            "></code>
+            <p>Amely így fog kinézni: <a href="https://google.com">Google</a></p>
+            <p>A leggyakoribb attribútumok az alábbiak:</p>
+            <ul>
+                <li><code inline>id</code> - Az elem egyedi azonosítója.</li>
+                <li><code inline>class</code> - Az elem osztályokat adhatunk meg.</li>
+                <li><code inline>style</code> - Az elem stílusát adhatjuk meg.</li>
+                <li><code inline>src</code> - Az elem forrását adhatjuk meg (képek, videók, hangok).</li>
+                <li><code inline>href</code> - Az elem hiperhivatkozásának címét adhatjuk meg.</li>
+                <li><code inline>alt</code> - Az elem alternatív szövegét adhatjuk meg (képek esetén).</li>
+                <li><code inline>width</code> - Az elem szélességét adhatjuk meg (képek, videók).</li>
+                <li><code inline>height</code> - Az elem magasságát adhatjuk meg (képek, videók).</li>
+                <li><code inline>controls</code> - Az elem vezérlőit jeleníti meg (videók, hangok).</li>
+                <li>és még sok más...</li>
+            </ul>
             <p>Most pedig haladjunk tovább a következő részre: <a href="/css.html">CSS alapok</a></p>
         </section>
-        <footer>
-            <p>2024 &copy; Kiss Konrád Soma</p>
+        <nav>
+            <div class="kk-topbar">
+                <button class="kk-sidebar-toggle" id="nav-toggle">
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+                </button>
+                <span class="kk-topbar-title">Bejelentkezés</span>
+            </div>
+            <form action="/login" method="post">
+                <label for="username">Felhasználónév:</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Jelszó:</label>
+                <input type="password" id="password" name="password">
+                <button type="submit">Bejelentkezés</button>
+            </form>
+        </nav>
+        <footer kk-content="footer">
         </footer>
     </main>
 </body>

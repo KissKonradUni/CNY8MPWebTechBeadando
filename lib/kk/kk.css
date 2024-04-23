@@ -15,6 +15,7 @@ kk-sidebar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     width: 100%;
 
     padding-bottom: 0.5rem;

@@ -7,26 +7,16 @@
     <link rel="stylesheet" href="./lib/kk/kk.css">
     <link rel="stylesheet" href="style.css">
 
-    <script src="./lib/jquery.js" defer></script>
+    <script src="./lib/jquery-3.7.1.min.js" defer></script>
     <script src="./lib/kk/kk.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
 </head>
 <body>
     <main>
-        <header>
-            <h1>Node.js 101, azaz egy gyors weboldal készítése Express backendel</h1>
-            <h2>Készítette: Kiss Konrád Soma, CNY8MP</h2>
+        <header kk-content="header">
         </header>
-        <kk-sidebar>
-            <kk-sidebar-item href="./">Kezdőlap</kk-sidebar-item>
-            <kk-sidebar-item href="./html.html">HTML alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./css.html">CSS alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./js.html">JavaScript alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./nodejs.html">Node.js alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./express.html">Express alapok</kk-sidebar-item>
-            <kk-sidebar-item href="./contact.html">Űrlap</kk-sidebar-item>
-            <kk-sidebar-item href="./about.html">Rólam</kk-sidebar-item>
+        <kk-sidebar kk-content="sidebar">
         </kk-sidebar>
         <section>
             <h1 id="title">Kezdőlap</h1>
@@ -57,8 +47,24 @@
                 <li>Űrlapok kezelése, fogadása express segítségével</li>
             </ul>
         </section>
-        <footer>
-            <p>2024 &copy; Kiss Konrád Soma</p>
+        <nav>
+            <div class="kk-topbar">
+                <button class="kk-sidebar-toggle" id="nav-toggle">
+                    <span class="material-symbols-outlined">
+                        menu
+                    </span>
+                </button>
+                <span class="kk-topbar-title">Bejelentkezés</span>
+            </div>
+            <form action="/login" method="post">
+                <label for="username">Felhasználónév:</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Jelszó:</label>
+                <input type="password" id="password" name="password">
+                <button type="submit">Bejelentkezés</button>
+            </form>
+        </nav>
+        <footer kk-content="footer">
         </footer>
     </main>
 </body>

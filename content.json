@@ -1,0 +1,14 @@
+{
+    "header": "Node.js 101, azaz egy gyors weboldal készítése Express backendel",
+    "sidebar": [
+        { "href": "./"            , "title": "Kezdőlap"          },
+        { "href": "./html.html"   , "title": "HTML alapok"       },
+        { "href": "./css.html"    , "title": "CSS alapok"        },
+        { "href": "./js.html"     , "title": "JavaScript alapok" },
+        { "href": "./nodejs.html" , "title": "Node.js alapok"    },
+        { "href": "./express.html", "title": "Express alapok"    },
+        { "href": "./contact.html", "title": "Űrlap"             },
+        { "href": "./about.html"  , "title": "Rólam"             }
+    ],
+    "footer": "2024 &copy; Kiss Konrád Soma, CNY8MP"
+}
