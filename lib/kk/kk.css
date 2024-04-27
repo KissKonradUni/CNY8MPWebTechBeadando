@@ -99,6 +99,6 @@ kk-sidebar[hidden="true"] > kk-sidebar-item {
 
 code[headerless] {
     padding: 0 1rem;
-    margin: -1rem;
+    margin: -1.2rem -1rem;
     height: calc(calc(fit-content) - 1.5rem);
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./lib/kk/kk.css">
     <link rel="stylesheet" href="style.css">
 
-    <script src="./lib/jquery-3.7.1.min.js" defer></script>
+    <script src="./lib/jquery-3.7.1.min.js"></script>
     <script src="./lib/kk/kk.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
@@ -25,12 +25,235 @@
                     margin-bottom: 1rem;
                 }
             </style>
-            <code js content="
-// Egyszerű függvény
-function helloWorld() {
+            <h2>Bevezetés</h2>
+            <p>A JavaScript, mint programnyelv az oldalak interaktívvá tételére szolgál. <br>
+               A böngészőben fut, és a felhasználói eseményekre reagálva változtatja meg az oldal tartalmát.</p>
+            <p>Ebben a témakörben a jQuery-t is meg fogjuk említeni, ami egy JavaScript könyvtár, <br>
+               ami sokkal egyszerűbbé teszi a DOM manipulációt. <br>
+               Előnyei a remek rövidítések, a jó böngésző kompatibilitás és a könnyű szintaxis. <br> <br>
+               Hátrányai közé tartozik, hogy plusz ismeretet igényel a használata, és a teljesítménye is rosszabb, mint a sima JavaScriptnek. <br>
+               A töltési idő-t is rendkívül megnöveli, ami a mobil eszközökön különösen érezhető.</p>
+            <p>JavaScript kódot több féleképpen is lehet a weboldalon elhelyezni, de mindegyiknek van egy <br>
+               közös vonása: hogy a <code inline>HTML DOM</code> után szeretnénk hogy fusson.</p>
+            <h2>JavaScript kód elhelyezése</h2>
+            <p>JavaScript kódot a következő módon helyezhetjük el az oldalon:</p>
+            <ul>
+                <li><code inline>script</code> elemmel a <code inline>body</code> végén, amennyiben nem akarjuk hogy külön fájlban legyen.</li>
+                <br>
+                <code html content="
+<script>
+    console.log('Hello, World!');
+</script>
+                "></code>
+                <br>
+                <li><code inline>script</code> elemmel a <code inline>head</code>-ben, amennyiben a kódunkat külön fájlban tároljuk. <br>
+                    Ebben az esetben a <code inline>defer</code> attribútumot fontos használni, hogy a böngésző az oldal betöltése után futtassa a kódot.</li>                
+                </li>
+                <br>
+                <code html content="
+<script src=&quot;script.js&quot; defer></script>
+                "></code>
+                <br>
+                <li>Amennyiben nem akarunk az elhelyezkedéssel, vagy a defer attribútummal foglalkozni, <br>
+                    használhatjuk a <code inline>DOMContentLoaded</code> eseményt, ami akkor fut le, amikor az oldal betöltődött. <br>
+                    JQuery esetén a <code inline>$(document).ready()</code> függvényt használhatjuk.</li>
+                <br>
+                <code html content="
+<head>
+    ...
+    <script src=&quot;script.js&quot;></script>
+</head>
+                "></code>
+                <br>
+                <code js content="
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Hello, World!');
+});
+                "></code>
+                <p>vagy</p>
+                <code js content="
+// script.js
+$(document).ready(function() {
+    console.log('Hello, World!');
+});
+                "></code>            
+            </ul>
+        <h2>JavaScript alapok</h2>
+        <p>Az alábbiakban néhány alapvető JavaScript kódrészletet láthatsz, amik segítenek megérteni a nyelvet.</p>
+        <h3>Változók</h3>
+        <p>A változók olyan értékeket tárolnak, amiket később használhatunk. <br>
+           A változókat a <code inline>var</code>, <code inline>let</code> vagy <code inline>const</code> kulcsszavakkal hozhatjuk létre.</p>
+        <p>A használtuk általában az adott szükségleteinktől függ, de ha egy sima változóra van szükségünk akkor a <code inline>let</code>,
+           ha pedig egy végleges értékre, amit nem akarunk változtatni, akkor a <code inline>const</code> használata ajánlott.</p>
+        <code js content="
+let x = 5;
+const y = 10;
+console.log(x + y); // 15
+
+x = 10;
+console.log(x + y); // 20
+
+y = 5;              // Error
+        "></code>
+        <br>
+        <h3>Console objektum</h3>
+        <p>A <code inline>console</code> objektum segítségével tudunk üzeneteket kiírni a böngésző konzoljába. <br>
+           Ez nagyon hasznos lehet hibakeresésnél, vagy ha szeretnénk látni, hogy a kódunk hogyan fut.</p>
+        <code js content="
+console.log('Hello, World!');
+        "></code>
+        <p>A konzol Firefox böngészőben a <code inline>Ctrl + Shift + K</code>, Chrome böngészőben pedig a <code inline>F12</code> billentyűkombinációval érhető el.</p>
+        <h3>Típusok</h3>
+        <p>A JavaScriptben csak kevés primitív típus van, ezek a következők:</p>
+        <ul>
+            <li><code inline>string</code>: szöveg</li>
+            <li><code inline>number</code>: szám</li>
+            <li><code inline>boolean</code>: logikai érték</li>
+            <li><code inline>undefined</code>: nincs érték</li>
+            <li><code inline>null</code>: null érték</li>
+        </ul>
+        <p>Minden olyan érték, amely nem ezek egyikébe tartozik egy összetettebb típus, azaz objektum. <br>
+           Az objektumok lehetnek <code inline>tömbök</code>, <code inline>függvények</code>, <code inline>osztályok példányai</code>, vagy akár <code inline>egyedi objektum</code> is.</p>
+        <code js content="
+let str    = 'Hello, World!';
+let num    = 5;
+let bool   = true;
+let undef;
+let nulled = null;
+
+let arr    = [];
+let func   = function() {};
+let obj    = new Object();
+let cust   = { name: 'John', age: 25 };
+        "></code>
+        <br>
+        <h3>DOM elemek</h3>
+        <p>A DOM elemek a weboldal HTML elemei. <br>
+           Az elemeket a <code inline>document</code> objektum, vagy a jQuery segítségével érhetjük el.</p>
+        <code html content="
+<h1 id=&quot;title&quot;>
+    JavaScript alapok
+</h1>
+        "></code>
+        <br>
+        <code js content="    
+let title = document.querySelector('#title');
+console.log(title.innerText); // JavaScript alapok
+
+// VAGY
+
+let title = $('#title');
+console.log(title.text());    // JavaScript alapok
+        "></code>
+        <p>Ezeknek az elemeknek a kijelölése pontosan ugyanúgy működik, mint a CSS-ben. <br>
+           A <code inline>querySelector</code> metódus a CSS szelektorokat támogatja, a jQuery pedig <br>
+           a saját szelektorait használja, amik roppant hasonlóak, vagy éppen ugyanazok, mint a CSS szelektorok.</p>
+        <h3>Események</h3>
+        <p>Az események olyan dolgok, amik a felhasználói interakcióra történnek. <br>
+           Például egy gombra kattintás, vagy egy űrlap beküldése.</p>
+        <p>Ezekre mi JavaScript segítségével tudunk reagálni, és különböző műveleteket végezni.</p>
+        <code html content="
+<button id=&quot;btn&quot;>
+    Kattints rám!
+</button>
+        "></code>
+        <br>
+        <code js content="
+let btn = document.querySelector('#btn');
+btn.addEventListener('click', function() {
+    console.log('Kattintás történt!');
+});
+
+// VAGY
+
+let btn = $('#btn');
+btn.click(function() {
+    console.log('Kattintás történt!');
+});
+        "></code>
+        <p>Az eseményekre való reagálás a <code inline>addEventListener</code> metódussal történik, vagy a jQuery adott eseményre való metódusával. <br>
+           Az események lehetnek <code inline>click</code>, <code inline>submit</code>, <code inline>change</code>, <code inline>input</code>, stb.</p>
+        <h3>Függvények</h3>
+        <p>A függvények olyan kódrészletek, amiket később újra és újra használhatunk. <br>
+           A függvényeket a <code inline>function</code> kulcsszóval hozhatjuk létre.</p>
+        <code js content="
+function sayHello() {
     console.log('Hello, World!');
 }
-            "></code>
+sayHello(); // Hello, World!
+        "></code>
+        <p>A függvényeknek lehetnek paraméterei, amikkel a függvény működését befolyásolhatjuk.</p>
+        <code js content="
+function sayHello(name) {
+    console.log('Hello, ' + name + '!');
+}
+sayHello('John'); // Hello, John!
+        "></code>
+        <br>
+        <h3>jQuery</h3>
+        <p>A jQuery egy JavaScript könyvtár, ami sokkal egyszerűbbé teszi a DOM manipulációt. <br>
+           Van egy pár dolog, amit rendkívül leegyszerűsít az alap JavaScripthez képest:</p>
+        <ul>
+            <li>Animációk</li>
+            <li>AJAX kérések</li>
+        </ul>
+        <p>A jQuery-t animációra az alábbi módon használhatjuk:</p>
+        <ul>
+            <li><code inline>hide(ms)</code>: elrejti az elemet</li>
+            <li><code inline>show(ms)</code>: megjeleníti az elemet</li>
+            <li><code inline>toggle(ms)</code>: váltakozva elrejti és megjeleníti az elemet</li>
+            <li><code inline>fadeIn(ms)</code>: lassan megjeleníti az elemet</li>
+            <li><code inline>fadeOut(ms)</code>: lassan elrejti az elemet</li>
+            <li><code inline>fadeToggle(ms)</code>: váltakozva lassan elrejti és megjeleníti az elemet</li>
+            <li><code inline>slideUp(ms)</code>: lassan elrejti az elemet</li>
+            <li><code inline>slideDown(ms)</code>: lassan megjeleníti az elemet</li>
+            <li><code inline>slideToggle(ms)</code>: váltakozva lassan elrejti és megjeleníti az elemet</li>
+            <li><code inline>animate({params}, ms)</code>: animálja az elemet a megadott paraméterekkel</li>
+        </ul>
+        <div id="animated">
+            <p>Ez egy jQueryvel animált elem.</p>
+        </div>
+        <style>
+            #animated {
+                display: inline-block;
+                padding: 0.5rem 2rem;
+                background-color: #f0f0f0;
+                color: #333;
+                border-radius: 0.5rem;
+            }
+        </style>
+        <script>
+            function partA() {
+                $('#animated').animate({
+                    marginLeft: '5rem',
+                }, 1000, partB);
+            }
+
+            function partB() {
+                $('#animated').animate({
+                    marginLeft: '0rem',
+                }, 1000, partA);
+            }
+
+            partA();
+        </script>
+        <br>
+        <p>A jQuery-t AJAX kérésekre az alábbi módon használhatjuk:</p>
+        <code js content="
+$.get('./example.txt', function(data, status) {
+    console.log(status + ': ' + data); // success: Hello, World!
+});
+        "></code>
+        <p>A fenti példában egy GET kérést küldünk a <code inline>./example.txt</code> címre, és a választ kiírjuk a konzolba.</p>
+        <p>Ennél sokkal több mindenre képes animáció és AJAX kérések terén a jQuery, de ha ezekre mind kitérnék akkor rettenetesen hosszú lenne ez a leírás.</p>
+        <p>Inkább javaslom az alábbi referenciákat: 
+            <a href="https://www.w3schools.com/jquery/jquery_ref_effects.asp">Animációk</a> és
+            <a href="https://www.w3schools.com/jquery/jquery_ref_ajax.asp">AJAX</a>.
+        </p>
+        <hr>
+        <p>Ez volt a JavaScript alapok bemutatása. <br>
+        <p>Most pedig haladjunk tovább a következő részre: <a href="./nodejs.html">Node.js alapok</a>.</p>
         </section>
         <nav>
             <div class="kk-topbar">
