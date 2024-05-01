@@ -9,6 +9,7 @@
 
     <script src="./lib/jquery-3.7.1.min.js" defer></script>
     <script src="./lib/kk/kk.js" defer></script>
+    <script src="login.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
 </head>
@@ -19,18 +20,52 @@
         <kk-sidebar kk-content="sidebar">
         </kk-sidebar>
         <section>
-            <h1 id="title">JavaScript alapok</h1>
+            <h1 id="title">Express alapok</h1>
             <style>
                 #title {
                     margin-bottom: 1rem;
                 }
             </style>
+            <p>Az Express egy Node.js framework, ami segítségével könnyedén tudunk webszervereket készíteni. Az Express nagyon népszerű, és sok kész modult tartalmaz, amikkel leegyszerűsíthetjük a fejlesztést.</p>
+            <h2>Telepítés</h2>
+            <p>Az Express telepítéséhez használjuk az npm csomagkezelőt. Vegyük az előző részben létrehozott projektet, és adjuk ki az alábbi parancsot:</p>
+            <code other>
+npm install express
+            </code>
+            <p>Ez a parancs letölti az Express-t, és hozzáadja a <code inline>package.json</code> fájlhoz a függőségeket.</p>
+            <h2>Alap webszerver</h2>
+            <p>Az alábbi kóddal egy egyszerű webszervert hozhatunk létre az Express segítségével:</p>
             <code js content="
-// Egyszerű függvény
-function helloWorld() {
-    console.log('Hello, World!');
-}
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+app.listen(port);
             "></code>
+            <p>Ez a kód egy webszervert indít a 3000-es porton, ami a <code inline>localhost:3000/</code> útvonalra válaszol a <code inline>Hello World!</code> üzenettel.</p>
+            <h2>Middleware</h2>
+            <p>A middleware-k olyan függvények, amiket az Express a kérés feldolgozása előtt hajt végre. Az alábbi példában egy megoszt egy mappát a webszerveren:</p>
+            <code js content="
+//... importok ...
+app.use(express.static('public'));
+//... további kód ...
+            "></code>
+            <p>Ez a kód a <code inline>public</code> mappát megosztja a webszerveren, így a <code inline>localhost:3000/[fájlnév]</code> címen elérhető lesz bármely fájl a mappából.</p>
+            <h2>index.html elküldése</h2>
+            <p>Az alábbi kóddal elküldhetjük az <code inline>index.html</code> fájlt a webszerveren a "Hello World!" helyett:</p>
+            <code js content="
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+            "></code>
+            <p>Ez a kód a <code inline>./public/index.html</code> fájlt küldi el a webszerveren a <code inline>localhost:3000/</code> útvonalon. <br>
+               A <code inline>__dirname</code> változó a projekt gyökérkönyvtárát jelöli.</p>
+            <h2>Összegzés</h2>
+            <p>Az Express egy nagyon népszerű Node.js framework, amivel könnyedén tudunk webszervereket készíteni. Az Express sok kész modult tartalmaz, amikkel leegyszerűsíthetjük a fejlesztést.</p>
         </section>
         <nav>
             <div class="kk-topbar">

@@ -9,6 +9,7 @@
 
     <script src="./lib/jquery-3.7.1.min.js" defer></script>
     <script src="./lib/kk/kk.js" defer></script>
+    <script src="login.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
 </head>
@@ -19,18 +20,86 @@
         <kk-sidebar kk-content="sidebar">
         </kk-sidebar>
         <section>
-            <h1 id="title">JavaScript alapok</h1>
+            <h1 id="title">Node.js alapok</h1>
             <style>
                 #title {
                     margin-bottom: 1rem;
                 }
             </style>
-            <code js content="
-// Egyszerű függvény
-function helloWorld() {
-    console.log('Hello, World!');
+            <p>A Node.js egy JavaScript runtime, ami lehetővé teszi a JavaScript futtatását a szerveroldalon. A Node.js segítségével könnyedén tudunk webszervereket, API-kat, vagy akár parancssori alkalmazásokat készíteni.</p>
+            <p>A Node.js a V8 JavaScript engine-re épül, ami a Google Chrome böngészőben is megtalálható. Ebben a bemutatóban lépésenként készítünk egy egyszerű projektet.</p>
+            <h2>Előszügségletek</h2>
+            <p>Az alábbi dolgokra lesz szükségünk a projekt elkészítéséhez:</p>
+            <ul>
+                <li>Node.js telepítve a számítógépünkre</li>
+                <li>Egy szövegszerkesztő, például Visual Studio Code</li>
+                <li>Alapvető JavaScript ismeretek</li>
+            </ul>
+            <h2>Lépések</h2>
+            <h3>Mappa előkészítése</h3>
+            <p>Nyissunk egy az adott opercáiós rendszernek megfelelő terminált, és hozzunk létre egy új mappát a projektnek:</p>
+            <code other>
+mkdir nodejs101
+cd nodejs101
+            </code><br>
+            <h3>npm inicializálása</h3>
+            <p>Adjuk ki az alábbi parancsot a mappa inicializálásához:</p>
+            <code other>
+npm init
+            </code>
+            <p>Itt meg kell adnunk néhány alapvető információt a projektünkről, például a nevét, a verziót, a leírást, stb. Ezeket később is módosíthatjuk a <code inline>package.json</code> fájlban.</p>
+            <h3>package.json beállítása</h3>
+            <p>Az inicializálás után a <code inline>package.json</code> fájlban találjuk a projektünk beállításait. Itt tudjuk megadni a függőségeket, scripteket, és egyéb információkat a projektről.</p>
+            <p>Alapvetően a package.json beállítása a következőképpen néz ki:</p>
+<code json>
+{
+    "name": "nodejs101",
+    "version": "1.0.0",
+    "description": "Egy egyszerű Node.js projekt",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }
-            "></code>
+
+</code>
+            <p>Az alapértelmezett beállításokon kívül itt találhatóak a scriptek, amiket a <code inline>npm run scriptNév</code> paranccsal tudunk futtatni. Ezeket a scripteket a <code inline>scripts</code> objektumban tudjuk megadni.</p>
+            <p>Mivel szeretnénk, hogy futtatható legyen a projektünk, így scripts objektumba hozzáadunk egy <code inline>start</code> scriptet is:</p>
+<code json>
+{
+    "name": "nodejs101",
+    "version": "1.0.0",
+    "description": "Egy egyszerű Node.js projekt",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
+
+</code><br>
+            <h3>Példa index.js elkészítése</h3>
+            <p>Hozzunk létre egy <code inline>index.js</code> fájlt a projekt gyökérkönyvtárában, és írjuk bele az alábbi kódot:</p>
+<code js content="
+console.log('Hello, Node.js!');
+
+"></code>
+            <p>Ez a kód egy egyszerű üdvözlő üzenetet ír ki a konzolra, amikor a projektet elindítjuk.</p>
+            <h3>Projekt futtatása</h3>
+            <p>A projekt futtatásához adjuk ki a következő parancsot a terminálban:</p>
+            <code other>
+npm start
+            </code>
+            <p>Ha minden jól ment, akkor a konzolon megjelenik az üdvözlő üzenetünk.</p>
+            <h3>Összefoglalás</h3>
+            <p>Gratulálok, elkészítetted az első Node.js projektet! Ezzel a bemutatóval megismerkedtél a Node.js alapjaival, és megtanultál egy egyszerű projektet létrehozni.</p>
+            <p>Most pedig haladjunk tovább a következő részre: <a href="./express.html">Express alapok</a></p>
         </section>
         <nav>
             <div class="kk-topbar">

@@ -118,6 +118,38 @@ Array.from(document.querySelectorAll("code[js]")).forEach((codeBlock) => {
     cb.before(header);
 });
 
+Array.from(document.querySelectorAll("code[other]")).forEach((codeBlock) => {
+    let cb = $(codeBlock);
+
+    if (cb.attr("headerless") === "")
+        return;
+
+    let header = $("<div></div>");
+    header.addClass("code-header");
+    header.html("Egyéb");
+
+    cb.before(header);
+});
+
+Array.from(document.querySelectorAll("code[json]")).forEach((codeBlock) => {
+    let cb = $(codeBlock);
+    let code = cb.text();
+
+    let coloredCode = code.replace(/("[^"]*")(\s*:\s*)(("[^"]*")|(\d+)|(\d+\.\d+)|(\w+)|(\[.*?\])|(\{.*?\}))/gi, '<span style="color:#ffaaff;">$1</span><span style="color:#aaffaa;">$2</span><span style="color:lightblue;">$3</span>');
+        coloredCode = coloredCode.replace(/(\{|\}|\[|\])/gi, '<span style="color:yellow;">$1</span>');
+
+    cb.html(coloredCode);
+
+    if (cb.attr("headerless") === "")
+        return;
+
+    let header = $("<div></div>");
+    header.addClass("code-header");
+    header.html("JSON");
+
+    cb.before(header);
+});
+
 async function fetchJson(url) {
     let response = await fetch(url);
     let content = await response.json();

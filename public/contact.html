@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="./lib/kk/kk.css">
     <link rel="stylesheet" href="style.css">
 
-    <script src="./lib/jquery-3.7.1.min.js" defer></script>
+    <script src="./lib/jquery-3.7.1.min.js"></script>
     <script src="./lib/kk/kk.js" defer></script>
+    <script src="login.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
 </head>
@@ -18,19 +19,113 @@
         </header>
         <kk-sidebar kk-content="sidebar">
         </kk-sidebar>
-        <section>
-            <h1 id="title">JavaScript alapok</h1>
+        <section>   
+            <h1>Kapcsolatfelvétel</h1>
+            <form action="/contact" method="post">
+                <label for="name">Név:</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <label for="reason">Kapcsolatfelvétel oka:</label>
+                <select id="reason" name="reason">
+                    <option value="question">Kérdés</option>
+                    <option value="offer">Ajánlat</option>
+                    <option value="complaint">Panasz</option>
+                    <option value="other">Egyéb</option>
+                </select>
+                <label for="message">Üzenet:</label>
+                <textarea id="message" name="message"></textarea>
+                <datalist id="ageGroups">
+                    <option value="0-17">
+                    <option value="18-25">
+                    <option value="26-35">
+                    <option value="36-45">
+                    <option value="46-55">
+                    <option value="56-65">
+                    <option value="65+">
+                </datalist>
+                <label for="age">Korcsoport:</label>
+                <input type="text" id="age" name="age" list="ageGroups">
+                <!-- Checkboxes-->
+                <label for="newsletter">Feliratkozás a hírlevélre:
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                </label>
+                <!-- Radio buttons-->
+                <div>
+                    <label for="gender">Nem:</label>
+                    <input type="radio" name="gender" id="dontcare" value="dontcare" checked="1">
+                    <label for="dontcare">Tartózkodom</label>
+                    <input type="radio" name="gender" id="male" value="male">
+                    <label for="male">Férfi</label>
+                    <input type="radio" name="gender" id="female" value="female">
+                    <label for="female">Nő</label>
+                </div>
+                <label for="color" style="display: flex; align-items: center;">
+                    <span style="margin-right: 1rem;">Kedvenc szín:</span>
+                    <input type="color" id="color" name="color" value="#ff0000">
+                </label>
+                <div>
+                    <label for="chapta">Chapta, válaszd ki a mai dátumot:</label>
+                    <input type="date" id="chapta" name="chapta">
+                </div>
+                <button type="submit" disabled>Küldés</button>
+            </form>
+            <script>
+                // Check every input field for validity
+                // Only then enable the submit button
+                const form = document.querySelector('form');
+                const submitButton = form.querySelector('button[type="submit"]');
+                const nameInput = form.querySelector('input[name="name"]');
+                const emailInput = form.querySelector('input[name="email"]');
+                const messageInput = form.querySelector('textarea[name="message"]');
+                const ageInput = form.querySelector('input[name="age"]');
+                const genderInputs = form.querySelectorAll('input[name="gender"]');
+                const colorInput = form.querySelector('input[name="color"]');
+                const chaptaInput = form.querySelector('input[name="chapta"]');
+
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                const checkValidity = () => {
+                    nameInput.setAttribute("error", nameInput.value.length === 0);
+                    if (nameInput.value.length === 0) {
+                        submitButton.disabled = true;
+                        return;
+                    }
+                    emailInput.setAttribute("error", !emailRegex.test(emailInput.value));
+                    if (!emailRegex.test(emailInput.value)) {
+                        submitButton.disabled = true;
+                        return;
+                    }
+                    messageInput.setAttribute("error", messageInput.value.length === 0);
+                    if (messageInput.value.length === 0) {
+                        submitButton.disabled = true;
+                        return;
+                    }
+                    ageInput.setAttribute("error", ageInput.value.length === 0);
+                    if (ageInput.value.length === 0) {
+                        submitButton.disabled = true;
+                        return;
+                    }
+                    chaptaInput.setAttribute("error", chaptaInput.value !== new Date().toISOString().split('T')[0]);
+                    if (chaptaInput.value !== new Date().toISOString().split('T')[0]) {
+                        submitButton.disabled = true;
+                        return;
+                    }
+                    submitButton.disabled = false;
+                }
+
+                form.addEventListener('input', checkValidity);
+            </script>
             <style>
-                #title {
-                    margin-bottom: 1rem;
+                button:disabled {
+                    background-color: #cccccc !important;
+                    color: #666666 !important;
+                }
+
+                input[error="true"], textarea[error="true"], div[error="true"] {
+                    border: 4px solid red;
                 }
             </style>
-            <code js content="
-// Egyszerű függvény
-function helloWorld() {
-    console.log('Hello, World!');
-}
-            "></code>
         </section>
         <nav>
             <div class="kk-topbar">

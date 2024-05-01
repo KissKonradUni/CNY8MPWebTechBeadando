@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="./lib/kk/kk.css">
     <link rel="stylesheet" href="style.css">
 
-    <script src="./lib/jquery-3.7.1.min.js" defer></script>
+    <script src="./lib/jquery-3.7.1.min.js"></script>
     <script src="./lib/kk/kk.js" defer></script>
+    <script src="login.js" defer></script>
 
     <title>Node.js 101, azaz egy gyors weboldal készítése Express backendel</title>
 </head>
@@ -20,19 +21,105 @@
         </kk-sidebar>
         <section>
             <h1 id="title">Kezdőlap</h1>
-            <img src="https://picsum.photos/id/524/1200/600" alt="Random kép" id="randomImg">
+            <video src="video.mp4"></video>
+            <div id="controls">
+                <button id="playpause"><span class="material-symbols-outlined">play_arrow</span></button>
+                <input type="range" id="seek" value="0" min="0" max="100" step="1">
+                <button id="fullscreen"><span class="material-symbols-outlined">fullscreen</span></button>
+            </div>
             <style>
                 #title {
                     margin-bottom: 1rem;
                 }
 
-                #randomImg {
-                    max-width: min(100%, 50rem);
+                video {
                     width: 100%;
+                    max-width: 800px;
                     height: auto;
-                    border-radius: 0.5rem;
+
+                    border-radius: 1rem;
+                }
+
+                #controls {
+                    display: flex;
+                    justify-content: stretch;
+
+                    width: 100%;
+                    max-width: 800px;
+
+                    height: 2rem;
+
+                    background-color: #00000044;
+                    border-radius: 1.5rem;
+
+                    margin-top: 0;
+                }
+
+                #playpause, #fullscreen {
+                    flex-grow: 0;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 2rem;
+
+                    background: var(--primary-color);
+                    border: none;
+                    cursor: pointer;
+
+                    border-radius: 50%;
+                }
+                #playpause:hover, #fullscreen:hover {
+                    filter: brightness(1.2);
+                }
+
+                #seek {
+                    flex-grow: 1;
+
+                    margin: 0 1rem;
+
+                    background: var(--primary-color);
+                    border: none;   
                 }
             </style>
+            <script>
+                const video = $('video')[0];
+                const playpause = $('#playpause');
+                const seek = $('#seek');
+                seek.val(0);
+                const fullscreen = $('#fullscreen');
+
+                playpause.click(() => {
+                    if (video.paused) {
+                        video.play();
+                        playpause.html('<span class="material-symbols-outlined">pause</span>');
+                    } else {
+                        video.pause();
+                        playpause.html('<span class="material-symbols-outlined">play_arrow</span>');
+                    }
+                });
+
+                seek.change(() => {
+                    video.currentTime = seek.val() / 100 * video.duration;
+                });
+
+                video.addEventListener('timeupdate', () => {
+                    seek.val(video.currentTime / video.duration * 100);
+                });
+
+                fullscreen.click(() => {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    } else if (video.mozRequestFullscreen) {
+                        video.mozRequestFullscreen();
+                    } else if (video.msRequestFullscreen) {
+                        video.msRequestFullscreen();
+                    }
+                });
+            </script>
+            <p>Forrás: <a href="https://www.youtube.com/@Fireship">https://www.youtube.com/@Fireship</a></p>
             <p>
                 Ez az oldal egy gyors bemutató arról, hogyan lehet egy egyszerű weboldalt készíteni Node.js és Express segítségével.
             </p>
