@@ -19,4 +19,10 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.listen(port);
+app.post('/contact', (req, res) => { 
+  res.send(`Köszönöm, ${req.body.name}! Hamarosan felveszem veled a kapcsolatot!`);
+});
+
+app.listen(port, () => {
+  console.log(`A szerver elindult az alábbi címen: http://localhost:${port}`);
+});

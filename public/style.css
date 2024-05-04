@@ -133,7 +133,7 @@ nav[hidden="true"] > form {
     display: none;
 }
 
-nav[hidden="true"] > .kk-topbar > .kk-topbar-title {
+nav[hidden="true"] > .kk-topbar > .kk-topbar-title, nav[hidden="true"] > p , nav[hidden="true"] > a {
     display: none;
 }
 
@@ -215,7 +215,7 @@ nav[hidden="true"] > .kk-topbar > .kk-topbar-title {
         height: auto;
     }
 
-    nav[hidden="true"] > form {
+    nav[hidden="true"] > form, nav[hidden="true"] > p, nav[hidden="true"] > a {
         display: flex;
     }
 }
