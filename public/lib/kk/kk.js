@@ -183,7 +183,7 @@ async function fetchPageContent() {
 }
 fetchPageContent();
 
-$("#nav-toggle").click(function() {
+$(".kk-nav-toggle#nav-toggle").click(function() {
     let nav = document.querySelector("nav");
     nav.setAttribute("hidden", nav.getAttribute("hidden") === "true" ? false : true);
 });
