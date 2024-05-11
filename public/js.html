@@ -30,7 +30,7 @@
             <p>A JavaScript, mint programnyelv az oldalak interaktívvá tételére szolgál. <br>
                A böngészőben fut, és a felhasználói eseményekre reagálva változtatja meg az oldal tartalmát.</p>
             <p>Ebben a témakörben a jQuery-t is meg fogjuk említeni, ami egy JavaScript könyvtár, <br>
-               ami sokkal egyszerűbbé teszi a DOM manipulációt. <br>
+               ami sokkal egyszerűbbé teszi a HTML DOM manipulációt. <br>
                Előnyei a remek rövidítések, a jó böngésző kompatibilitás és a könnyű szintaxis. <br> <br>
                Hátrányai közé tartozik, hogy plusz ismeretet igényel a használata, és a teljesítménye is rosszabb, mint a sima JavaScriptnek. <br>
                A töltési idő-t is rendkívül megnöveli, ami a mobil eszközökön különösen érezhető.</p>
@@ -80,6 +80,7 @@ $(document).ready(function() {
 });
                 "></code>            
             </ul>
+        <p>Forrás: <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash">mdn web docs - JavaScript first steps</a></p>
         <h2>JavaScript alapok</h2>
         <p>Az alábbiakban néhány alapvető JavaScript kódrészletet láthatsz, amik segítenek megérteni a nyelvet.</p>
         <h3>Változók</h3>
@@ -129,8 +130,8 @@ let obj    = new Object();
 let cust   = { name: 'John', age: 25 };
         "></code>
         <br>
-        <h3>DOM elemek</h3>
-        <p>A DOM elemek a weboldal HTML elemei. <br>
+        <h3>HTML DOM elemek</h3>
+        <p>A HTML DOM elemek a weboldal HTML elemei. <br>
            Az elemeket a <code inline>document</code> objektum, vagy a jQuery segítségével érhetjük el.</p>
         <code html content="
 <h1 id=&quot;title&quot;>
@@ -191,9 +192,9 @@ function sayHello(name) {
 }
 sayHello('John'); // Hello, John!
         "></code>
-        <br>
+        <p>Forrás: <a href="https://www.w3schools.com/js/js_intro.asp">w3schools - JavaScript Introduction</a></p>
         <h3>jQuery</h3>
-        <p>A jQuery egy JavaScript könyvtár, ami sokkal egyszerűbbé teszi a DOM manipulációt. <br>
+        <p>A jQuery egy JavaScript könyvtár, ami sokkal egyszerűbbé teszi a HTML DOM manipulációt. <br>
            Van egy pár dolog, amit rendkívül leegyszerűsít az alap JavaScripthez képest:</p>
         <ul>
             <li>Animációk</li>

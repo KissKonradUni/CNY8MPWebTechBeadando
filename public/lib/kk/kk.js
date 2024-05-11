@@ -158,27 +158,29 @@ async function fetchJson(url) {
 }
 
 async function fetchPageContent() {
-    let content = await fetchJson("content.json");
+    //let content = await fetchJson("content.json");
 
-    $("*[kk-content='header']").html(content.header);
-    $("*[kk-content='footer']").html(content.footer);
+    $.getJSON("content.json", function(content) {
+        $("*[kk-content='header']").html(content.header);
+        $("*[kk-content='footer']").html(content.footer);
 
-    if ($("*[kk-content='sidebar']").length < 1)
-        return;
+        if ($("*[kk-content='sidebar']").length < 1)
+            return;
 
-    let sidebar = $("kk-sidebar");
-    let sidebarContent = content.sidebar;
+        let sidebar = $("kk-sidebar");
+        let sidebarContent = content.sidebar;
 
-    Array.from(sidebarContent).forEach((item) => {
-        let sidebarItem = $("<kk-sidebar-item></kk-sidebar-item>");
-        sidebarItem.html(item.title);
-        sidebarItem.attr("href", item.href);
+        Array.from(sidebarContent).forEach((item) => {
+            let sidebarItem = $("<kk-sidebar-item></kk-sidebar-item>");
+            sidebarItem.html(item.title);
+            sidebarItem.attr("href", item.href);
 
-        sidebarItem.click(function() {
-            window.location.href = item.href;
+            sidebarItem.click(function() {
+                window.location.href = item.href;
+            });
+
+            sidebar.append(sidebarItem);
         });
-
-        sidebar.append(sidebarItem);
     });
 }
 fetchPageContent();
